@@ -2,7 +2,7 @@
   "name": "s75_tejalnayak_capstone_mindmaze",
   "version": "1.0.0",
   "description": "**Squad Number:** s75 \r **Student Name:** Tejal Nayak.M",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
