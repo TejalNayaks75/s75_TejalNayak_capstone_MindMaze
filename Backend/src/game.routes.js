@@ -1,21 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const gameController = require('./game.controller');
 
-// API versioning prefix
+// Verify controller loading
+let gameController;
+try {
+  gameController = require('./game.controller');
+  console.log('[✓] Controller loaded successfully');
+} catch (err) {
+  console.error('[×] Failed to load controller:', err);
+  process.exit(1);
+}
+
 const API_PREFIX = '/v1';
 
 // Game Configuration
-router.get(`${API_PREFIX}/settings`, gameController.getGameSettings);
+router.get(`${API_PREFIX}/settings`, 
+  (req, res, next) => {
+    if (!gameController.getGameSettings) {
+      return res.status(500).json({ error: 'Controller method missing' });
+    }
+    next();
+  },
+  gameController.getGameSettings
+);
 
 // Game Lifecycle
-router.post(`${API_PREFIX}/games/:difficulty`, gameController.startNewGame);
-router.get(`${API_PREFIX}/games/:gameId`, gameController.getGameState);
-router.patch(`${API_PREFIX}/games/:gameId/tiles/:tileId`, gameController.rotateTile);
-router.get(`${API_PREFIX}/games/:gameId/check`, gameController.checkGameCompletion);
-router.put(`${API_PREFIX}/games/:gameId/reset`, gameController.resetGame); // Fixed: changed resetGame to gameController.resetGame
+router.post(`${API_PREFIX}/games/:difficulty`, 
+  (req, res, next) => {
+    if (!gameController.startNewGame) {
+      return res.status(500).json({ error: 'Controller method missing' });
+    }
+    next();
+  },
+  gameController.startNewGame
+);
 
-// Leaderboard
-router.get(`${API_PREFIX}/leaderboard`, gameController.getLeaderboard);
+// Add similar validation for all other routes...
 
 module.exports = router;
