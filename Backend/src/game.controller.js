@@ -6,7 +6,7 @@ const {
   checkGameCompletionService,
   getLeaderboardService,
   resetGameService
-} = require('src/game.service');
+} = require('./game.service');
 
 const getGameSettings = async (req, res) => {
   try {

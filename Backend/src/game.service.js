@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
-const { generateMaze, checkPathCompletion } = require('src/maze.utils');
-const { TILE_TYPES, DIFFICULTY_SETTINGS } = require('src/constants');
+const { generateMaze, checkPathCompletion } = require('./maze.utils');
+const { TILE_TYPES, DIFFICULTY_SETTINGS } = require('./constants');
 
 const games = new Map();
 const leaderboard = [];

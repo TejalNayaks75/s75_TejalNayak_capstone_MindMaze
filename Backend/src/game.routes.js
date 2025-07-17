@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gameController = require('src/game.controller');
+const gameController = require('./game.controller');
 
 // API versioning prefix
 const API_PREFIX = '/v1';
